@@ -4,12 +4,12 @@ const http = require('http');
 const server = http.createServer(app);
 
 // Socket.io connection
-const io = require('socket.io')(server, {
-  cors: 'localhost:3000',
-});
-// cor
+const io = require('socket.io');
 const cors = require('cors');
-app.use(cors());
+
+// cors
+io.origins('*:*'); // Allow all origins
+io.use(cors()); // Enable CORS
 
 app.use(express.json());
 
