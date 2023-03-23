@@ -5,16 +5,26 @@ const server = http.createServer(app);
 
 const cors = require('cors');
 
-app.use(cors());
-
-// Socket.io connection
 const io = require('socket.io')(server, {
   cors: {
-    origin: '*',
+    origin: 'http://localhost:3000',
   },
 });
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+};
+
+app.use(cors(corsOptions));
+
+// Socket.io connection
 app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'API is Running',
+  });
+});
 
 const useSocket = require('./useSocket');
 useSocket(io);
